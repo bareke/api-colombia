@@ -1,0 +1,22 @@
+// database
+datasource db {
+    provider = "sqlite"
+    url      = "file:db.sqlite3"
+}
+
+// generator
+generator client {
+    provider             = "prisma-client-py"
+    recursive_type_depth = -1
+}
+
+// data models
+model Example {
+    id         Int      @id @default(autoincrement())
+    name       String
+    last_name  String?
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+
+    @@map("examples")
+}
