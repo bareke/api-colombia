@@ -1,3 +1,5 @@
+from contextlib import asynccontextmanager
+
 import uvicorn
 from fastapi import FastAPI
 
@@ -5,18 +7,15 @@ from app.settings.database import database
 from app.settings.environment import settings
 from app.settings.routers import routers
 
-app = FastAPI()
 
-
-@app.on_event("startup")
-async def startup():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     await database.connect()
-
-
-@app.on_event("shutdown")
-async def shutdown():
+    yield
     await database.disconnect()
 
+
+app = FastAPI(lifespan=lifespan)
 
 prefix = "/api"
 
