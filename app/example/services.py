@@ -1,3 +1,4 @@
+from app.example.schemas import ExampleBase
 from app.settings.database import database
 
 
@@ -19,14 +20,14 @@ class ExampleService:
 
         return result
 
-    async def create_example(self, example):
+    async def create_example(self, example: ExampleBase):
         """Save register in the persistence"""
 
         result = await self.repository.example.create(data=vars(example))
 
         return result
 
-    async def update_example(self, example_id: int, example):
+    async def update_example(self, example_id: int, example: ExampleBase):
         """Update register in the persistence"""
 
         result = await self.repository.example.update(

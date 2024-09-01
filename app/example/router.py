@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 
+from app.example.schemas import ExampleBase
 from app.example.services import ExampleService
 
 router = APIRouter(
@@ -21,12 +22,12 @@ async def get_example(id: int):
 
 
 @router.post("")
-async def create_example(example):
+async def create_example(example: ExampleBase):
     return await example_service.create_example(example)
 
 
 @router.put("/{id}")
-async def update_example(id: int, example):
+async def update_example(id: int, example: ExampleBase):
     return await example_service.update_example(id, example)
 
 
