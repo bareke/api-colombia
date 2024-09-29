@@ -16,5 +16,9 @@ class ExampleAbstractRepository(ABC):
         pass
 
     @abstractmethod
+    async def update(self):
+        pass
+
+    @abstractmethod
     async def delete(self):
         pass
