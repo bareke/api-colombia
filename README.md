@@ -59,3 +59,10 @@ $ prisma db push
 # 6. Execute app
 $ uvicorn main:app --reload
 ```
+
+### Troubleshooting
+
+```bash
+# Cannot import client
+python -m prisma_cleanup
+```
