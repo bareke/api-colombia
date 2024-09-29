@@ -3,21 +3,20 @@ from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
 
-from app.settings.database import database
+from app.settings.database import connect_db, disconnect_db
 from app.settings.environment import settings
-from app.settings.routers import routers
-
+from app.settings.modules import routers
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    await database.connect()
+    await connect_db()
     yield
-    await database.disconnect()
+    await disconnect_db()
 
 
 app = FastAPI(lifespan=lifespan)
 
-prefix = "/api"
+prefix = "/api/v1"
 
 # Register all routers
 [app.include_router(router, prefix=prefix) for router in routers]
